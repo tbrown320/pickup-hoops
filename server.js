@@ -5,6 +5,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const ObjectId = require('mongodb').ObjectId
+let port = process.env.PORT || 3005
 
 let db, collection;
 
@@ -12,7 +13,7 @@ const url = process.env.MONGO_URI;
 const dbName = "pickup-games";
 
 //connecting to the database
-app.listen(3005, () => {
+app.listen(port, () => {
     MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
         if (error) {
             throw error;
