@@ -1,0 +1,49 @@
+body {
+  background-image: url("s4.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  background-color: #111;
+  color: white;
+  text-align: center;
+}
+h3 {
+  margin-top: 25px;
+}
+
+#app_center {
+  border: 2px solid white;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.55);
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.game {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  list-style: none;
+}
+
+#player_info {
+  margin-bottom: 25px;
+}
+
+.messages,
+.players {
+  list-style: none;
+  padding-left: 0;
+}
+
+.park-link {
+  color: #ffc857;
+  text-decoration: none;
+}
+.park-link:hover {
+  text-decoration: underline;
+}

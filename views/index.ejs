@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pick Up and Play</title>
+  <!-- <link rel="shortcut icon" href="favicon.ico"> -->
+  <link rel="stylesheet" href="font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+  <h1>Find a PickUp Game!</h1>
+  <h2>Can you play? Looking for a game?! Post your court and player info to find a game!</h2>
+
+<section id="app_center">
+
+  <h2>Drop your info! Post a Game!</h2>
+<section id="player_info">
+  <form action="/games" method="POST">
+    <input type="text" placeholder="Name" name="createdBy">
+    <select name="sport" id="">
+      <option value="basketball">Basketball</option>
+      <!-- <option value="football">Football</option> -->
+    </select>
+    <input type="text" placeholder="Location" name="location">
+    <input type="date" placeholder="Date" name="date">
+    <input type="time" name="time">
+    <select name="position" id="" placeholder="Position">
+      <option value="Point Guard">PG</option>
+      <option value="Shooting Guard">SG</option>
+      <option value="Guard">G</option>
+      <option value="Small Forward">SF</option>
+      <option value="Power Forward">PF</option>
+      <option value="Forward">F</option>
+      <option value="center">C</option>
+    </select>
+    <input type="number" placeholder="Spots" name="spots">
+    <button type="submit">Submit</button>
+  </form>
+  </section>
+
+  <h3>Sessions Board</h3>
+<!-- function to change time format from 24hr to 12hr -->
+  <%
+  function formatTime(time) {
+    if (!time) return ''
+    let parts = time.split(':')
+    let hour = parseInt(parts[0])
+    const minute = parts[1]
+    const ampm = hour >= 12 ? 'PM' : 'AM'
+    hour = hour % 12 || 12
+    return hour + ':' + minute + ' ' + ampm
+  }
+%>
+
+  <ul class="messages">
+  <!-- allows you to insert for loops onto the page -->
+  <% for(let i=0; i<games.length; i++) {%>
+    <li class="game" data-id="<%= games[i]._id %>">
+      <!-- < % = grabs an actual value, do this instead of a innner.html in the server -->
+      <span><%= games[i].createdBy %></span> 
+      <span><a class="park-link" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=<%= encodeURIComponent(games[i].location) %>"><%= games[i].location %></a></span>
+      <span><%= games[i].date %></span>
+      <span><%= formatTime(games[i].time) %></span>
+      <span><%= games[i].position %></span>
+      <span><%= games[i].players.length %> / <%= games[i].spotsTotal %> Spots Filled </span>
+      <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+      <span><i class="fa fa-minus" aria-hidden="true"></i></span>
+      <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+  
+      <!-- section to have players join sessions already posted -->
+      <ul class="players">
+        <!-- if there are no players in a session -->
+        <% if (games[i].players.length === 0) { %>
+          <li>No players yet - join this session!</li> 
+        <% } %>
+        <% for (let p = 0; p < games[i].players.length; p++) { %>
+          <li>Spot <%= p+1 %>: <%= games[i].players[p].name %> - <%= games[i].players[p].position %></li> 
+        <% } %>
+      </ul>
+    </li>
+  <% } %>
+  </ul>
+
+  <input type="text" id="playerName" placeholder="Join a Game">
+<select name="" id="playerPosition">
+  <option value="Point Guard">PG</option>
+  <option value="Shooting Guard">SG</option>
+  <option value="Guard">G</option>
+  <option value="Small Forward">SF</option>
+  <option value="Power Forward">PF</option>
+  <option value="Forward">F</option>
+  <option value="Center">C</option>
+</select>
+</section>
+
+  <script src="main.js"></script>
+
+</body>
+</html>
